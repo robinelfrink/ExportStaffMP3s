@@ -172,7 +172,7 @@ MuseScore {
                         if (restInBackground.checked) {
                             offs = -60
                         } else {
-                            offs = 0
+                            offs = -100
                         }
                     }
                     cur.staffIdx = st
