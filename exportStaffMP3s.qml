@@ -11,7 +11,7 @@ MuseScore {
     requiresScore: true
     pluginType: "dialog"
     id: window
-    width: 300
+    width: 360
     height: 200
 
 
@@ -84,6 +84,40 @@ MuseScore {
             console.log(proc.readAllStandardOutput())
         }
     }
+    function mkdir(path) {
+        var cmd = "mkdir "+path
+        proc.start(cmd);
+        var val = proc.waitForFinished(-1);
+        if (val) {
+            console.log(cmd)
+            console.log(val)
+            console.log(proc.readAllStandardOutput())
+        } else {
+            cmd = "cmd.exe /c 'Mkdir \""+path+"\"'"
+            proc.start(cmd);
+            var val = proc.waitForFinished(-1);
+            console.log(cmd)
+            console.log(val)
+            console.log(proc.readAllStandardOutput())
+        }
+    }
+    function rmdir(path) {
+        var cmd = "rm -rf "+path
+        proc.start(cmd);
+        var val = proc.waitForFinished(-1);
+        if (val) {
+            console.log(cmd)
+            console.log(val)
+            console.log(proc.readAllStandardOutput())
+        } else {
+            var cmd = "cmd.exe /c 'rmdir /s /q \""+path+"\"'"
+            proc.start(cmd);
+            var val = proc.waitForFinished(-1);
+            console.log(cmd)
+            console.log(val)
+            console.log(proc.readAllStandardOutput())
+        }
+    }
     function exportStaffs(destFolder) {
         var score = curScore
         var origPath = score.path
@@ -93,12 +127,7 @@ MuseScore {
         console.log(score.scoreName, score.nstaves)
         console.log(cdir, cname)
 
-        var cmd = "mkdir "+destFolder+"tempFolder/"
-        console.log(cmd)
-        proc.start(cmd);
-        var val = proc.waitForFinished(-1);
-        console.log(val)
-        console.log(proc.readAllStandardOutput())
+        mkdir(destFolder+"tempFolder/")
 
         // all staffs
         exportMP3(cdir+cname+".mscz", destFolder+cname+"_all.mp3")
@@ -140,7 +169,11 @@ MuseScore {
                         console.log("ignoring staff",st)
                         offs = 0
                     } else {
-                        offs = -60
+                        if (restInBackground.checked) {
+                            offs = -60
+                        } else {
+                            offs = 0
+                        }
                     }
                     cur.staffIdx = st
                     for (var voice=0; voice<4; voice++) {
@@ -180,13 +213,7 @@ MuseScore {
         
         
         // remove tempfolder again
-        cmd = "rm -rf "+destFolder+"tempFolder/"
-        console.log(cmd)
-        proc.start(cmd);
-        var val = proc.waitForFinished(-1);
-        console.log(val)
-        console.log(proc.readAllStandardOutput())
-        
+        rmdir(destFolder+"tempFolder/")        
 
         closeScore(curScore)
         //console.log("reading",origPath)
@@ -214,6 +241,17 @@ MuseScore {
                 }
             }
 
+            CheckBox {
+                id: restInBackground
+                checked: true
+                text: qsTr("Export other staffs but quieter")
+                onCheckedChanged: function () {
+                }
+            }
+
+            Label {
+                text: qsTr("After choosing the output wait for this window to close")
+            }
 
             Row {
                 spacing: 10
