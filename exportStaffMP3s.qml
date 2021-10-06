@@ -164,12 +164,16 @@ MuseScore {
 
                 writeScore(curScore, destFolder+"tempFolder/"+cname+"_"+instLongName,"mscz")
 
+
+                exportMP3(destFolder+"tempFolder/"+cname+"_"+instLongName+".mscz", destFolder+cname+"_"+instLongName+".mp3")
+                /*
                 var cmd = "musescore "+destFolder+"tempFolder/"+cname+"_"+instLongName+".mscz -o "+destFolder+cname+"_"+instLongName+".mp3"
                 console.log(cmd)
                 proc.start(cmd);
                 var val = proc.waitForFinished(-1);
                 console.log(val)
                 console.log(proc.readAllStandardOutput())
+                */
 
             }
         }
