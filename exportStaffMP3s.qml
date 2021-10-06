@@ -67,6 +67,23 @@ MuseScore {
         path = decodeURIComponent(path)
         return path
     }
+    function exportMP3(infile, outfile) {
+        var cmd = "musescore "+infile+" -o "+outfile
+        proc.start(cmd);
+        var val = proc.waitForFinished(-1);
+        if (val) {
+            console.log(cmd)
+            console.log(val)
+            console.log(proc.readAllStandardOutput())
+        } else {
+            cmd = "MuseScore3.exe "+infile+" -o "+outfile
+            proc.start(cmd);
+            var val = proc.waitForFinished(-1);
+            console.log(cmd)
+            console.log(val)
+            console.log(proc.readAllStandardOutput())
+        }
+    }
     function exportStaffs(destFolder) {
         var score = curScore
         var origPath = score.path
@@ -84,12 +101,15 @@ MuseScore {
         console.log(proc.readAllStandardOutput())
 
         // all staffs
+        exportMP3(cdir+cname+".mscz", destFolder+cname+"_all.mp3")
+        /*
         var cmd = "musescore "+cdir+cname+".mscz -o "+destFolder+cname+"_all.mp3"
         console.log(cmd)
         proc.start(cmd);
         var val = proc.waitForFinished(-1);
         console.log(val)
         console.log(proc.readAllStandardOutput())
+        */
 
         console.log("did all mp3")
 
