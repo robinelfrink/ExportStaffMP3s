@@ -14,9 +14,6 @@ MuseScore {
     width: 300
     height: 200
 
-    property bool showProgress
-    property int progress
-    property int progressTotal
 
 
     QProcess {
@@ -98,7 +95,6 @@ MuseScore {
 
         if (score.nstaves>1) {
             for (var staff=0; staff<score.nstaves; staff++) {
-                console.log(progress, progressTotal, 1.0*progress/progressTotal)
                 console.log("doing staff",staff)
                 readScore(origPath)
 
@@ -106,7 +102,7 @@ MuseScore {
                 cur.staffIdx = staff
                 cur.voice = 0
                 cur.rewind(0)
-                showObject(cur.element.staff.part)
+                //showObject(cur.element.staff.part)
                 if (!exportNonPitched.checked && !cur.element.staff.part.hasPitchedStaff) {
                     continue
                 }
