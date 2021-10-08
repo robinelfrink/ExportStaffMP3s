@@ -85,37 +85,41 @@ MuseScore {
         }
     }
     function mkdir(path) {
-        var cmd = "mkdir "+path
-        proc.start(cmd);
-        var val = proc.waitForFinished(-1);
-        if (val) {
+        if (Qt.platform.os=="windows") {
+            var cmd = "mkdir "+path
+            proc.start(cmd);
+            var val = proc.waitForFinished(-1);
             console.log(cmd)
             console.log(val)
             console.log(proc.readAllStandardOutput())
-        } else {
+        } else if (Qt.platform.os=="linux") {
             cmd = "cmd.exe /c 'Mkdir \""+path+"\"'"
             proc.start(cmd);
             var val = proc.waitForFinished(-1);
             console.log(cmd)
             console.log(val)
             console.log(proc.readAllStandardOutput())
+        } else {
+            console.log("unknown os",Qt.platform.os)
         }
     }
     function rmdir(path) {
-        var cmd = "rm -rf "+path
-        proc.start(cmd);
-        var val = proc.waitForFinished(-1);
-        if (val) {
+        if (Qt.platform.os=="windows") {
+            var cmd = "rm -rf "+path
+            proc.start(cmd);
+            var val = proc.waitForFinished(-1);
             console.log(cmd)
             console.log(val)
             console.log(proc.readAllStandardOutput())
-        } else {
+        } else if (Qt.platform.os=="linux") {
             var cmd = "cmd.exe /c 'rmdir /s /q \""+path+"\"'"
             proc.start(cmd);
             var val = proc.waitForFinished(-1);
             console.log(cmd)
             console.log(val)
             console.log(proc.readAllStandardOutput())
+        } else {
+            console.log("unknown os",Qt.platform.os)
         }
     }
     function exportStaffs(destFolder) {
