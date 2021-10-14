@@ -134,15 +134,7 @@ MuseScore {
         mkdir(destFolder+"tempFolder/")
 
         // all staffs
-        exportMP3(cdir+cname+".mscz", destFolder+cname+"_all.mp3")
-        /*
-        var cmd = "musescore "+cdir+cname+".mscz -o "+destFolder+cname+"_all.mp3"
-        console.log(cmd)
-        proc.start(cmd);
-        var val = proc.waitForFinished(-1);
-        console.log(val)
-        console.log(proc.readAllStandardOutput())
-        */
+        exportMP3(cdir+cname+".mscz", destFolder+cname+"-all.mp3")
 
         console.log("did all mp3")
 
@@ -199,18 +191,10 @@ MuseScore {
                 }
 
 
-                writeScore(curScore, destFolder+"tempFolder/"+cname+"_"+instLongName,"mscz")
+                writeScore(curScore, destFolder+"tempFolder/"+cname+"-"+instLongName,"mscz")
 
 
-                exportMP3(destFolder+"tempFolder/"+cname+"_"+instLongName+".mscz", destFolder+cname+"_"+instLongName+".mp3")
-                /*
-                var cmd = "musescore "+destFolder+"tempFolder/"+cname+"_"+instLongName+".mscz -o "+destFolder+cname+"_"+instLongName+".mp3"
-                console.log(cmd)
-                proc.start(cmd);
-                var val = proc.waitForFinished(-1);
-                console.log(val)
-                console.log(proc.readAllStandardOutput())
-                */
+                exportMP3(destFolder+"tempFolder/"+cname+"-"+instLongName+".mscz", destFolder+cname+"-"+instLongName+".mp3")
 
             }
         }
