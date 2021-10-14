@@ -85,14 +85,14 @@ MuseScore {
         }
     }
     function mkdir(path) {
-        if (Qt.platform.os=="windows") {
+        if (Qt.platform.os=="linux") {
             var cmd = "mkdir "+path
             proc.start(cmd);
             var val = proc.waitForFinished(-1);
             console.log(cmd)
             console.log(val)
             console.log(proc.readAllStandardOutput())
-        } else if (Qt.platform.os=="linux") {
+        } else if (Qt.platform.os=="windows") {
             cmd = "cmd.exe /c 'Mkdir \""+path+"\"'"
             proc.start(cmd);
             var val = proc.waitForFinished(-1);
@@ -104,14 +104,14 @@ MuseScore {
         }
     }
     function rmdir(path) {
-        if (Qt.platform.os=="windows") {
+        if (Qt.platform.os=="linux") {
             var cmd = "rm -rf "+path
             proc.start(cmd);
             var val = proc.waitForFinished(-1);
             console.log(cmd)
             console.log(val)
             console.log(proc.readAllStandardOutput())
-        } else if (Qt.platform.os=="linux") {
+        } else if (Qt.platform.os=="windows") {
             var cmd = "cmd.exe /c 'rmdir /s /q \""+path+"\"'"
             proc.start(cmd);
             var val = proc.waitForFinished(-1);
@@ -174,7 +174,7 @@ MuseScore {
                         offs = 0
                     } else {
                         if (restInBackground.checked) {
-                            offs = -60
+                            offs = -40
                         } else {
                             offs = -100
                         }
