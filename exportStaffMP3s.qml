@@ -156,7 +156,7 @@ MuseScore {
                 var inst = cur.element.staff.part.instruments[0]
                 var instLongName = inst.longName.replace(" ","_")
 
-                writeScore(curScore, destFolder+"tempFolder/"+cname+"_"+instLongName,"mscz")
+                writeScore(curScore, destFolder+"tempFolder/"+cname+"-"+instLongName,"mscz")
 
                 // modify dynamics
                 var offs = 0
