@@ -68,20 +68,28 @@ MuseScore {
         return path
     }
     function exportMP3(infile, outfile) {
-        var cmd = "musescore "+infile+" -o "+outfile
-        proc.start(cmd);
-        var val = proc.waitForFinished(-1);
-        if (val) {
-            console.log(cmd)
-            console.log(val)
-            console.log(proc.readAllStandardOutput())
-        } else {
-            cmd = "MuseScore3.exe "+infile+" -o "+outfile
+        if (Qt.platform.os=="linux") {
+            var cmd = "musescore "+infile+" -o "+outfile
             proc.start(cmd);
             var val = proc.waitForFinished(-1);
-            console.log(cmd)
-            console.log(val)
-            console.log(proc.readAllStandardOutput())
+            if (val) {
+                console.log(cmd)
+                console.log(val)
+                console.log(proc.readAllStandardOutput())
+            } else {
+                console.log("did not work")
+            }
+        } else if (Qt.platform.os=="windows") {
+            var cmd = "MuseScore3.exe "+infile+" -o "+outfile
+            proc.start(cmd);
+            var val = proc.waitForFinished(-1);
+            if (val) {
+                console.log(cmd)
+                console.log(val)
+                console.log(proc.readAllStandardOutput())
+            } else {
+                console.log("did not work")
+            }
         }
     }
     function mkdir(path) {
@@ -134,7 +142,7 @@ MuseScore {
         mkdir(destFolder+"tempFolder/")
 
         // all staffs
-        exportMP3(cdir+cname+".mscz", destFolder+cname+"-all.mp3")
+        exportMP3(cdir+cname+".mscz", destFolder+cname+"-all.mp3") // TODO: translate all
 
         console.log("did all mp3")
 
