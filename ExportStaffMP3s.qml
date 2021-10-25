@@ -252,7 +252,7 @@ MuseScore {
 
                 Label {
                         id: factorSliderLabel
-                        text: qsTr("Factor")
+                        text: qsTr("Silencing factor")
                         visible: restInBackground.checked
                         anchors.verticalCenter: factorSlider.verticalCenter
                         anchors.left: parent.left
