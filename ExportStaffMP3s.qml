@@ -141,21 +141,42 @@ MuseScore {
 
         mkdir(destFolder+"tempFolder/")
 
-        // all staffs
-        exportMP3(cdir+cname+".mscz", destFolder+cname+"-all.mp3") // TODO: translate all
+        // add metronome
+        var origWmetFname = destFolder+"tempFolder/"+cname+"-all.mscz"
+        console.log("copy dest", origWmetFname)
 
+        if (addMetronome.checked) {
+            curScore.appendPart("temple-blocks")
+            var msIdx = curScore.nstaves-1
+            var cur = curScore.newCursor()
+            cur.staffIdx = msIdx
+            cur.voice = 0
+            cur.rewind(0)
+            cur.setDuration(1,4)
+            // TODO: check measure type
+            for (var i=0; i<curScore.nmeasures*4; i++) {
+                if (cur.measure.firstSegment.tick == cur.segment.tick) {
+                    cur.addNote(77, false)
+                } else {
+                    cur.addNote(76, false)
+                }
+            }
+        }
+        writeScore(curScore, origWmetFname,"mscz")
+
+        // all staffs
+        exportMP3(origWmetFname, destFolder+cname+"-all.mp3") // TODO: translate all
         console.log("did all mp3")
 
         if (score.nstaves>1) {
             for (var staff=0; staff<score.nstaves; staff++) {
                 console.log("doing staff",staff)
-                readScore(origPath)
 
-                var cur = curScore.newCursor()
+                cur = curScore.newCursor()
                 cur.staffIdx = staff
                 cur.voice = 0
                 cur.rewind(0)
-                //showObject(cur.element.staff.part)
+                
                 if (!exportNonPitched.checked && !cur.element.staff.part.hasPitchedStaff) {
                     continue
                 }
@@ -163,8 +184,6 @@ MuseScore {
                 console.log(instID)
                 var inst = cur.element.staff.part.instruments[0]
                 var instLongName = inst.longName.replace(" ","_")
-
-                writeScore(curScore, destFolder+"tempFolder/"+cname+"-"+instLongName,"mscz")
 
                 // modify dynamics
                 var offs = 0
@@ -174,7 +193,7 @@ MuseScore {
                         offs = 0
                     } else {
                         if (restInBackground.checked) {
-                            offs = -40
+                            //offs = -40
                             offs = factorSlider.value
                         } else {
                             offs = -100
@@ -199,22 +218,19 @@ MuseScore {
                     }
                 }
 
-
                 writeScore(curScore, destFolder+"tempFolder/"+cname+"-"+instLongName,"mscz")
-
 
                 exportMP3(destFolder+"tempFolder/"+cname+"-"+instLongName+".mscz", destFolder+cname+"-"+instLongName+".mp3")
 
             }
         }
         
+        closeScore(curScore)
         
         // remove tempfolder again
         rmdir(destFolder+"tempFolder/")        
 
-        closeScore(curScore)
-        //console.log("reading",origPath)
-        readScore(origPath,false)
+        readScore(origPath, false)
 
         Qt.quit()
     }
@@ -248,21 +264,20 @@ MuseScore {
 
             Row {
                 width: childrenRect.width
-                height: restInBackground.checked ? childrenRect.height : 0
+                height: childrenRect.height
+                spacing: 4
 
                 Label {
                         id: factorSliderLabel
                         text: qsTr("Silencing factor")
                         visible: restInBackground.checked
                         anchors.verticalCenter: factorSlider.verticalCenter
-                        anchors.left: parent.left
                         anchors.leftMargin: 4
                 }
 
                 Slider {
                         id: factorSlider
                         visible: restInBackground.checked
-                        anchors.left: factorSliderLabel.right
                         anchors.leftMargin: 8
                         from: -127
                         to: 0
@@ -276,9 +291,14 @@ MuseScore {
                         text: Math.floor(factorSlider.value)
                         visible: restInBackground.checked
                         anchors.verticalCenter: factorSlider.verticalCenter
-                        anchors.left: factorSlider.right
                         anchors.leftMargin: 4
                 }
+            }
+
+            CheckBox {
+                id: addMetronome
+                checked: false
+                text: qsTr("Add metronome to output")
             }
 
             Label {
