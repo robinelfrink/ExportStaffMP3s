@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Dialogs 1.0
-import QtQuick.Controls 1.0
+import QtQuick.Controls 2.0
 import MuseScore 3.0
 import FileIO 3.0
 
@@ -12,7 +12,7 @@ MuseScore {
     pluginType: "dialog"
     id: window
     width: 360
-    height: 200
+    height: 230
 
 
 
@@ -175,6 +175,7 @@ MuseScore {
                     } else {
                         if (restInBackground.checked) {
                             offs = -40
+                            offs = factorSlider.value
                         } else {
                             offs = -100
                         }
@@ -242,6 +243,41 @@ MuseScore {
                 checked: true
                 text: qsTr("Export other staffs but quieter")
                 onCheckedChanged: function () {
+                }
+            }
+
+            Row {
+                width: childrenRect.width
+                height: restInBackground.checked ? childrenRect.height : 0
+
+                Label {
+                        id: factorSliderLabel
+                        text: qsTr("Factor")
+                        visible: restInBackground.checked
+                        anchors.verticalCenter: factorSlider.verticalCenter
+                        anchors.left: parent.left
+                        anchors.leftMargin: 4
+                }
+
+                Slider {
+                        id: factorSlider
+                        visible: restInBackground.checked
+                        anchors.left: factorSliderLabel.right
+                        anchors.leftMargin: 8
+                        from: -127
+                        to: 0
+                        onMoved: function() {
+                            console.log("slider",factorSlider.value)
+                        }
+                }
+
+                Label {
+                        id: factorSliderValueLabel
+                        text: Math.floor(factorSlider.value)
+                        visible: restInBackground.checked
+                        anchors.verticalCenter: factorSlider.verticalCenter
+                        anchors.left: factorSlider.right
+                        anchors.leftMargin: 4
                 }
             }
 
