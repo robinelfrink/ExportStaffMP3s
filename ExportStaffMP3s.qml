@@ -11,7 +11,7 @@ MuseScore {
     requiresScore: true
     pluginType: "dialog"
     id: window
-    width: 360
+    width: 400
     height: 230
 
 
