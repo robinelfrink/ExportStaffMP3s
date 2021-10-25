@@ -101,7 +101,7 @@ MuseScore {
             console.log(val)
             console.log(proc.readAllStandardOutput())
         } else if (Qt.platform.os=="windows") {
-            cmd = "cmd.exe /c 'Mkdir \""+path+"\"'"
+            cmd = "Powershell.exe -Command \"New-Item -Path '"+path+"' -ItemType Directory\""
             proc.start(cmd);
             var val = proc.waitForFinished(-1);
             console.log(cmd)
@@ -120,7 +120,7 @@ MuseScore {
             console.log(val)
             console.log(proc.readAllStandardOutput())
         } else if (Qt.platform.os=="windows") {
-            var cmd = "cmd.exe /c 'rmdir /s /q \""+path+"\"'"
+            var cmd = "Powershell.exe -Command \"Remove-Item '"+path+"' -Recurse\""
             proc.start(cmd);
             var val = proc.waitForFinished(-1);
             console.log(cmd)
