@@ -12,7 +12,7 @@ MuseScore {
     pluginType: "dialog"
     id: window
     width: 400
-    height: 230
+    height: 280
 
 
 
@@ -69,7 +69,7 @@ MuseScore {
     }
     function exportMP3(infile, outfile) {
         if (Qt.platform.os=="linux") {
-            var cmd = "musescore "+infile+" -o "+outfile
+            var cmd = "musescore \""+infile+"\" -o \""+outfile+"\""
             proc.start(cmd);
             var val = proc.waitForFinished(-1);
             if (val) {
@@ -80,7 +80,7 @@ MuseScore {
                 console.log("did not work")
             }
         } else if (Qt.platform.os=="windows") {
-            var cmd = "MuseScore3.exe "+infile+" -o "+outfile
+            var cmd = 'Powershell.exe -Command "MuseScore3.exe \''+infile+'\' -o \''+outfile+'\'"'
             proc.start(cmd);
             var val = proc.waitForFinished(-1);
             if (val) {
