@@ -4,39 +4,44 @@
 <context>
     <name>ExportStaffMP3s</name>
     <message>
-        <location filename="../ExportStaffMP3s.qml" line="236"/>
+        <location filename="../ExportStaffMP3s.qml" line="252"/>
         <source>Export non pitched staffs</source>
-        <translation>Exportiere nonmelodische Instrumente</translation>
+        <translation type="unfinished">Exportiere nonmelodische Instrumente</translation>
     </message>
     <message>
-        <location filename="../ExportStaffMP3s.qml" line="244"/>
+        <location filename="../ExportStaffMP3s.qml" line="260"/>
         <source>Export other staffs but quieter</source>
-        <translation>Exportiere alle Instrumente leise im Hintergrund</translation>
+        <translation type="unfinished">Exportiere alle Instrumente leise im Hintergrund</translation>
     </message>
     <message>
-        <location filename="../ExportStaffMP3s.qml" line="255"/>
+        <location filename="../ExportStaffMP3s.qml" line="272"/>
         <source>Silencing factor</source>
-        <translation>Dämpfungsfaktor</translation>
+        <translation type="unfinished">Dämpfungsfaktor</translation>
     </message>
     <message>
-        <location filename="../ExportStaffMP3s.qml" line="285"/>
+        <location filename="../ExportStaffMP3s.qml" line="301"/>
+        <source>Add metronome to output</source>
+        <translation type="unfinished">Füge Metronom hinzu</translation>
+    </message>
+    <message>
+        <location filename="../ExportStaffMP3s.qml" line="305"/>
         <source>After choosing the output wait for this window to close</source>
-        <translation>Nach dem Exportieren warte bis dieses Fenster schliesst</translation>
-    </message>
-    <message>
-        <location filename="../ExportStaffMP3s.qml" line="293"/>
-        <source>Export</source>
-        <translation>Exportieren</translation>
-    </message>
-    <message>
-        <location filename="../ExportStaffMP3s.qml" line="302"/>
-        <source>Cancel</source>
-        <translation>Schliessen</translation>
+        <translation type="unfinished">Nach dem Exportieren warte bis dieses Fenster schliesst</translation>
     </message>
     <message>
         <location filename="../ExportStaffMP3s.qml" line="313"/>
+        <source>Export</source>
+        <translation type="unfinished">Exportieren</translation>
+    </message>
+    <message>
+        <location filename="../ExportStaffMP3s.qml" line="322"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Schliessen</translation>
+    </message>
+    <message>
+        <location filename="../ExportStaffMP3s.qml" line="333"/>
         <source>Output destination</source>
-        <translation>Speicherort</translation>
+        <translation type="unfinished">Speicherort</translation>
     </message>
 </context>
 </TS>
