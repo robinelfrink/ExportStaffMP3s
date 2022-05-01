@@ -77,7 +77,7 @@ MuseScore {
                 console.log(val)
                 console.log(proc.readAllStandardOutput())
             } else {
-                console.log("did not work")
+                console.log("command failed: "+cmd)
             }
         } else if (Qt.platform.os=="windows") {
             var cmd = 'Powershell.exe -Command "MuseScore3.exe \''+infile+'\' -o \''+outfile+'\'"'
@@ -88,7 +88,7 @@ MuseScore {
                 console.log(val)
                 console.log(proc.readAllStandardOutput())
             } else {
-                console.log("did not work")
+                console.log("command failed: "+cmd)
             }
         } else if (Qt.platform.os=="osx") {
             var cmd = 'open -j -W -n "/Applications/MuseScore 3.app" --args "'+infile+'" -o "'+outfile+'"'
@@ -99,7 +99,7 @@ MuseScore {
                 console.log(val)
                 console.log(proc.readAllStandardOutput())
             } else {
-                console.log("did not work")
+                console.log("command failed: "+cmd)
             }
         }
     }
