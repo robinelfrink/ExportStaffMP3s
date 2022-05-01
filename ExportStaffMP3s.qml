@@ -105,7 +105,7 @@ MuseScore {
     }
     function mkdir(path) {
         if (["linux", "osx"].indexOf(Qt.platform.os)>=0) {
-            var cmd = "mkdir "+path
+            var cmd ='mkdir "'+path+'"'
             proc.start(cmd);
             var val = proc.waitForFinished(-1);
             console.log(cmd)
@@ -124,7 +124,7 @@ MuseScore {
     }
     function rmdir(path) {
         if (["linux", "osx"].indexOf(Qt.platform.os)>=0) {
-            var cmd = "rm -rf "+path
+            var cmd = 'rm -rf "'+path+'"'
             proc.start(cmd);
             var val = proc.waitForFinished(-1);
             console.log(cmd)
