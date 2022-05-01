@@ -90,10 +90,21 @@ MuseScore {
             } else {
                 console.log("did not work")
             }
+        } else if (Qt.platform.os=="osx") {
+            var cmd = 'open -j -W -n "/Applications/MuseScore 3.app" --args "'+infile+'" -o "'+outfile+'"'
+            proc.start(cmd);
+            var val = proc.waitForFinished(-1);
+            if (val) {
+                console.log(cmd)
+                console.log(val)
+                console.log(proc.readAllStandardOutput())
+            } else {
+                console.log("did not work")
+            }
         }
     }
     function mkdir(path) {
-        if (Qt.platform.os=="linux") {
+        if (["linux", "osx"].indexOf(Qt.platform.os)>=0) {
             var cmd = "mkdir "+path
             proc.start(cmd);
             var val = proc.waitForFinished(-1);
@@ -112,7 +123,7 @@ MuseScore {
         }
     }
     function rmdir(path) {
-        if (Qt.platform.os=="linux") {
+        if (["linux", "osx"].indexOf(Qt.platform.os)>=0) {
             var cmd = "rm -rf "+path
             proc.start(cmd);
             var val = proc.waitForFinished(-1);
