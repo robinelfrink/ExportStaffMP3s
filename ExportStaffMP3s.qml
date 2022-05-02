@@ -77,7 +77,7 @@ MuseScore {
                 console.log(val)
                 console.log(proc.readAllStandardOutput())
             } else {
-                console.log("did not work")
+                console.log("command failed: "+cmd)
             }
         } else if (Qt.platform.os=="windows") {
             var cmd = 'Powershell.exe -Command "MuseScore3.exe \''+infile+'\' -o \''+outfile+'\'"'
@@ -88,13 +88,24 @@ MuseScore {
                 console.log(val)
                 console.log(proc.readAllStandardOutput())
             } else {
-                console.log("did not work")
+                console.log("command failed: "+cmd)
+            }
+        } else if (Qt.platform.os=="osx") {
+            var cmd = 'open -j -W -n "/Applications/MuseScore 3.app" --args "'+infile+'" -o "'+outfile+'"'
+            proc.start(cmd);
+            var val = proc.waitForFinished(-1);
+            if (val) {
+                console.log(cmd)
+                console.log(val)
+                console.log(proc.readAllStandardOutput())
+            } else {
+                console.log("command failed: "+cmd)
             }
         }
     }
     function mkdir(path) {
-        if (Qt.platform.os=="linux") {
-            var cmd = "mkdir "+path
+        if (["linux", "osx"].indexOf(Qt.platform.os)>=0) {
+            var cmd ='mkdir "'+path+'"'
             proc.start(cmd);
             var val = proc.waitForFinished(-1);
             console.log(cmd)
@@ -112,8 +123,8 @@ MuseScore {
         }
     }
     function rmdir(path) {
-        if (Qt.platform.os=="linux") {
-            var cmd = "rm -rf "+path
+        if (["linux", "osx"].indexOf(Qt.platform.os)>=0) {
+            var cmd = 'rm -rf "'+path+'"'
             proc.start(cmd);
             var val = proc.waitForFinished(-1);
             console.log(cmd)
