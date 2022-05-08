@@ -68,39 +68,15 @@ MuseScore {
         return path
     }
     function exportMP3(infile, outfile) {
-        if (Qt.platform.os=="linux") {
-            var cmd = "musescore \""+infile+"\" -o \""+outfile+"\""
-            proc.start(cmd);
-            var val = proc.waitForFinished(-1);
-            if (val) {
-                console.log(cmd)
-                console.log(val)
-                console.log(proc.readAllStandardOutput())
-            } else {
-                console.log("command failed: "+cmd)
-            }
-        } else if (Qt.platform.os=="windows") {
-            var cmd = 'Powershell.exe -Command "MuseScore3.exe \''+infile+'\' -o \''+outfile+'\'"'
-            proc.start(cmd);
-            var val = proc.waitForFinished(-1);
-            if (val) {
-                console.log(cmd)
-                console.log(val)
-                console.log(proc.readAllStandardOutput())
-            } else {
-                console.log("command failed: "+cmd)
-            }
-        } else if (Qt.platform.os=="osx") {
-            var cmd = 'open -j -W -n "/Applications/MuseScore 3.app" --args "'+infile+'" -o "'+outfile+'"'
-            proc.start(cmd);
-            var val = proc.waitForFinished(-1);
-            if (val) {
-                console.log(cmd)
-                console.log(val)
-                console.log(proc.readAllStandardOutput())
-            } else {
-                console.log("command failed: "+cmd)
-            }
+        var cmd = '"'+Qt.application.arguments[0]+'" "'+infile+'" -o "'+outfile+'"'
+        proc.start(cmd);
+        var val = proc.waitForFinished(-1);
+        if (val) {
+            console.log(cmd)
+            console.log(val)
+            console.log(proc.readAllStandardOutput())
+        } else {
+            console.log("command failed: "+cmd)
         }
     }
     function mkdir(path) {
