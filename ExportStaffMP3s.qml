@@ -225,90 +225,93 @@ MuseScore {
 
     Item {
         anchors.fill: parent
-        anchors.topMargin: 10
-        anchors.bottomMargin: 10
-        anchors.leftMargin: 10
-        anchors.rightMargin: 10
 
-        Column {
-            spacing: 10
+        Rectangle {
+            id: backgroundRect
+            color: "#EEEEEE"
+            width: parent.width
+            height: parent.height
 
-            CheckBox {
-                id: exportNonPitched
-                checked: false
-                text: qsTr("Export non pitched staffs")
-                onCheckedChanged: function () {
-                }
-            }
-
-            CheckBox {
-                id: restInBackground
-                checked: true
-                text: qsTr("Export other staffs but quieter")
-                onCheckedChanged: function () {
-                }
-            }
-
-            Row {
-                width: childrenRect.width
-                height: childrenRect.height
-                spacing: 4
-
-                Label {
-                        id: factorSliderLabel
-                        text: qsTr("Silencing factor")
-                        visible: restInBackground.checked
-                        anchors.verticalCenter: factorSlider.verticalCenter
-                        anchors.leftMargin: 4
-                }
-
-                Slider {
-                        id: factorSlider
-                        visible: restInBackground.checked
-                        anchors.leftMargin: 8
-                        from: -127
-                        to: 0
-                        onMoved: function() {
-                            console.log("slider",factorSlider.value)
-                        }
-                }
-
-                Label {
-                        id: factorSliderValueLabel
-                        text: Math.floor(factorSlider.value)
-                        visible: restInBackground.checked
-                        anchors.verticalCenter: factorSlider.verticalCenter
-                        anchors.leftMargin: 4
-                }
-            }
-
-            CheckBox {
-                id: addMetronome
-                checked: false
-                text: qsTr("Add metronome to output")
-            }
-
-            Label {
-                text: qsTr("After choosing the output wait for this window to close")
-            }
-
-            Row {
+            Column {
                 spacing: 10
 
-                Button {
-                    id : buttonSaveOutput
-                    text: qsTr("Export")
-                    onClicked: {
-                        console.log("export")
-                        saveFileDialog.open()
+                CheckBox {
+                    id: exportNonPitched
+                    checked: false
+                    text: qsTr("Export non pitched staffs")
+                    onCheckedChanged: function () {
                     }
                 }
 
-                Button {
-                    id : buttonCancel
-                    text: qsTr("Cancel")
-                    onClicked: {
-                        Qt.quit();
+                CheckBox {
+                    id: restInBackground
+                    checked: true
+                    text: qsTr("Export other staffs but quieter")
+                    onCheckedChanged: function () {
+                    }
+                }
+
+                Row {
+                    width: childrenRect.width
+                    height: childrenRect.height
+                    spacing: 4
+
+                    Label {
+                            id: factorSliderLabel
+                            text: qsTr("Silencing factor")
+                            visible: restInBackground.checked
+                            anchors.verticalCenter: factorSlider.verticalCenter
+                            anchors.leftMargin: 4
+                    }
+
+                    Slider {
+                            id: factorSlider
+                            visible: restInBackground.checked
+                            anchors.leftMargin: 8
+                            from: -127
+                            to: 0
+                            onMoved: function() {
+                                console.log("slider",factorSlider.value)
+                            }
+                    }
+
+                    Label {
+                            id: factorSliderValueLabel
+                            text: Math.floor(factorSlider.value)
+                            visible: restInBackground.checked
+                            anchors.verticalCenter: factorSlider.verticalCenter
+                            anchors.leftMargin: 4
+                    }
+                }
+
+                CheckBox {
+                    id: addMetronome
+                    checked: false
+                    text: qsTr("Add metronome to output")
+                }
+
+                Label {
+                    text: qsTr("After choosing the output wait for this window to close")
+                }
+
+                Row {
+                    spacing: 10
+
+                    Button {
+                        id : buttonSaveOutput
+                        text: qsTr("Export")
+                        onClicked: {
+                            console.log("export")
+                            saveFileDialog.open()
+                        }
+                    }
+
+                    Button {
+                        id : buttonCancel
+                        text: qsTr("Cancel")
+                        onClicked: {
+                            Qt.quit();
+                        }
                     }
                 }
             }
