@@ -268,6 +268,7 @@ MuseScore {
                             id: factorSlider
                             visible: restInBackground.checked
                             anchors.leftMargin: 8
+                            value: -48
                             from: -127
                             to: 0
                             onMoved: function() {
@@ -286,7 +287,7 @@ MuseScore {
 
                 CheckBox {
                     id: addMetronome
-                    checked: false
+                    checked: true
                     text: qsTr("Add metronome to output")
                 }
 
