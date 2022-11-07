@@ -12,7 +12,7 @@ MuseScore {
     pluginType: "dialog"
     id: window
     width: 400
-    height: 280
+    height: 320
 
 
 
@@ -122,7 +122,7 @@ MuseScore {
         var origPath = score.path
         var cdir = dirname(origPath)
         var cname = basename(origPath)
-        cname = cname.slice(0, cname.lastIndexOf('.'))
+        cname = baseFileName.text != '' ? baseFileName.text : cname.slice(0, cname.lastIndexOf('.'))
         console.log(score.scoreName, score.nstaves)
         console.log(cdir, cname)
 
@@ -293,6 +293,12 @@ MuseScore {
 
                 Label {
                     text: qsTr("After choosing the output wait for this window to close")
+                }
+                
+                TextField {
+                    id: baseFileName
+                    placeholderText: qsTr("Base file name")
+                    validator: RegExpValidator { regExp: /[^\\|/|:|*|?|\"|<|>|\|]+/ }
                 }
 
                 Row {
