@@ -132,9 +132,9 @@ MuseScore {
                     for (var instrument in volumes[otherPart])
                         for (var channel in volumes[otherPart][instrument])
                             if (restInBackground.checked)
-                                curScore.parts[otherPart].instruments[instrument].channels[channel].volume += factorSlider.value;
+                                curScore.parts[otherPart].instruments[instrument].channels[channel].volume *= factorSlider.value/100;
                             else
-                                curScore.parts[otherPart].instruments[instrument].channels[channel].volume -= 100;
+                                curScore.parts[otherPart].instruments[instrument].channels[channel].volume = 0;
 
             writeScore(curScore, destFolder+cname+"-"+curScore.parts[part].partName, "mp3");
         }
@@ -182,7 +182,7 @@ MuseScore {
 
                     Label {
                             id: factorSliderLabel
-                            text: qsTr("Silencing factor")
+                            text: qsTr("Other staffs volume")
                             visible: restInBackground.checked
                             anchors.verticalCenter: factorSlider.verticalCenter
                             anchors.leftMargin: 4
@@ -192,9 +192,9 @@ MuseScore {
                             id: factorSlider
                             visible: restInBackground.checked
                             anchors.leftMargin: 8
-                            value: -48
-                            from: -127
-                            to: 0
+                            value: 50
+                            from: 0
+                            to: 100
                             onMoved: function() {
                                 console.log("slider",factorSlider.value)
                             }
@@ -206,6 +206,12 @@ MuseScore {
                             visible: restInBackground.checked
                             anchors.verticalCenter: factorSlider.verticalCenter
                             anchors.leftMargin: 4
+                    }
+
+                    Label {
+                        text: "%"
+                        visible: restInBackground.checked
+                        anchors.verticalCenter: factorSlider.verticalCenter
                     }
                 }
 
